@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	"fmt"
 	"net/url"
 
 	"github.com/ChimeraCoder/anaconda"
@@ -37,6 +38,8 @@ to quickly create a Cobra application.`,
 		anaconda.SetConsumerKey(viper.GetString("consumer-key"))
 		anaconda.SetConsumerSecret(viper.GetString("consumer-secret"))
 		api := anaconda.NewTwitterApi(viper.GetString("access-token"), viper.GetString("access-token-secret"))
+		status := nms.Tweet()
+		fmt.Println("Tweeting: ", status)
 		_, err := api.PostTweet(nms.Tweet(), url.Values{})
 		if err != nil {
 			panic(err)

@@ -6,6 +6,8 @@ import (
 )
 
 var (
+	// Thank you No Man's Sky Wikia
+	// http://nomanssky.wikia.com/wiki/Behaviour_(Fauna)#Temperament
 	ages = []string{
 		"perpetual",
 		"infant",
@@ -15,6 +17,7 @@ var (
 		"undying",
 		"adolescent",
 		"eternal",
+		"fledgling",
 	}
 
 	genders = []string{
@@ -30,6 +33,12 @@ var (
 		"asymmetric",
 		"rational",
 		"symetric",
+		"alpha",
+		"none",
+		"female",
+		"male",
+		"non-uniform",
+		"orthogonal",
 	}
 
 	temperaments = []string{
@@ -42,6 +51,16 @@ var (
 		"anxious",
 		"grumpy",
 		"locquacious",
+		"amenable",
+		"cautious",
+		"defensive",
+		"distinctive",
+		"fearful",
+		"migratory",
+		"passive",
+		"submissive",
+		"unconcerned",
+		"unpredictable",
 	}
 
 	tweetFmt = `Age: %s
