@@ -15,6 +15,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/grepory/birdin/birds"
 	"github.com/grepory/birdin/birds/nms"
@@ -38,7 +40,10 @@ to quickly create a Cobra application.`,
 		bird := nms.Bird{
 			Tweeter: birds.NewAnaconda(viper.GetString("nms-access-token"), viper.GetString("nms-access-token-secret")),
 		}
-		if err := bird.Tweet(); err != nil {
+
+		status, err := bird.Tweet()
+		fmt.Printf("Tweeting:\n%s\n", status)
+		if err != nil {
 			panic(err)
 		}
 	},

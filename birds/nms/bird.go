@@ -95,6 +95,8 @@ type Bird struct {
 }
 
 // Tweet a random animal description.
-func (b *Bird) Tweet() (err error) {
-	return b.Tweeter.PostTweet(genAnimal().String())
+func (b *Bird) Tweet() (status string, err error) {
+	status = genAnimal().String()
+	err = b.Tweeter.PostTweet(status)
+	return status, err
 }
