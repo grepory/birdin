@@ -1,4 +1,4 @@
-// Copyright © 2016 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2016 Greg Poirier <greg.istehbest@gmail.com>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,13 +27,15 @@ import (
 // nmsCmd represents the nms command
 var nmsCmd = &cobra.Command{
 	Use:   "nms",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "No One's Sky animal tweeter",
+	Long: `Running the nms command will Tweet a random No One's Sky animal description. For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+λ ./birdin nms
+Using config file: /Users/grepory/.birdin.yaml
+Tweeting:
+Age: eternal
+Gender: alpha
+Temperament: grumpy`,
 	Run: func(cmd *cobra.Command, args []string) {
 		anaconda.SetConsumerKey(viper.GetString("consumer-key"))
 		anaconda.SetConsumerSecret(viper.GetString("consumer-secret"))
