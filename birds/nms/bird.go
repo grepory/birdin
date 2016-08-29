@@ -7,6 +7,10 @@ import (
 	"github.com/grepory/birdin/birds"
 )
 
+const (
+	birdName = "@NoOnesAnimals"
+)
+
 var (
 	// Thank you No Man's Sky Wikia
 	// http://nomanssky.wikia.com/wiki/Behaviour_(Fauna)#Temperament
@@ -99,4 +103,8 @@ func (b *Bird) Tweet() (status string, err error) {
 	status = genAnimal().String()
 	err = b.Tweeter.PostTweet(status)
 	return status, err
+}
+
+func (b *Bird) Name() string {
+	return birdName
 }

@@ -15,56 +15,63 @@
 package cmd
 
 import (
-	"fmt"
+	"time"
 
 	"github.com/ChimeraCoder/anaconda"
+	"github.com/grepory/birdin/aviary"
 	"github.com/grepory/birdin/birds"
 	"github.com/grepory/birdin/birds/nms"
+	"github.com/grepory/birdin/scheduler"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
-// nmsCmd represents the nms command
-var nmsCmd = &cobra.Command{
-	Use:   "nms",
-	Short: "No One's Sky animal tweeter",
-	Long: `Running the nms command will Tweet a random No One's Sky animal description. For example:
+func buildAviary() (a *aviary.Aviary, err error) {
+	nmsBirdScheduler := &aviary.BirdScheduler{
+		Bird: &nms.Bird{
+			Tweeter: birds.NewAnaconda(viper.GetString("nms-access-token"), viper.GetString("nms-secret-token")),
+		},
+		Scheduler: &scheduler.TickerScheduler{
+			Duration: 12 * time.Hour,
+		},
+	}
 
-λ ./birdin nms
-Using config file: /Users/grepory/.birdin.yaml
-Tweeting:
-Age: eternal
-Gender: alpha
-Temperament: grumpy`,
+	a = aviary.New(nmsBirdScheduler)
+	return a, nil
+}
+
+// aviaryCmd represents the aviary command
+var aviaryCmd = &cobra.Command{
+	Use:   "aviary",
+	Short: "Start an aviary tweet scheduler",
+	Long:  `Running the aviary will start a Tweet scheduler using all of the birds in the aviary.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		anaconda.SetConsumerKey(viper.GetString("consumer-key"))
 		anaconda.SetConsumerSecret(viper.GetString("consumer-secret"))
-		bird := nms.Bird{
-			Tweeter: birds.NewAnaconda(viper.GetString("nms-access-token"), viper.GetString("nms-secret-token")),
-		}
-
-		status, err := bird.Tweet()
-		fmt.Printf("Tweeting:\n%s\n", status)
+		a, err := buildAviary()
 		if err != nil {
 			panic(err)
 		}
+
+		a.Tweet()
 	},
 }
 
 func init() {
-	RootCmd.AddCommand(nmsCmd)
+	RootCmd.AddCommand(aviaryCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// nmsCmd.PersistentFlags().String("foo", "", "A help for foo")
-	nmsCmd.PersistentFlags().String("nms-access-token", "", "Twitter API Access Token")
-	nmsCmd.PersistentFlags().String("nms-secret-token", "", "Twitter API Access Secret Token")
-	viper.BindPFlag("nms-access-token", nmsCmd.PersistentFlags().Lookup("nms-access-token"))
-	viper.BindPFlag("nms-secret-token", nmsCmd.PersistentFlags().Lookup("nms-secret-token"))
+	// aviaryCmd.PersistentFlags().String("foo", "", "A help for foo")
+	aviaryCmd.PersistentFlags().String("nms-access-token", "", "Twitter API Access Token")
+	aviaryCmd.PersistentFlags().String("nms-secret-token", "", "Twitter API Access Secret Token")
+	viper.BindPFlag("nms-access-token", aviaryCmd.PersistentFlags().Lookup("nms-access-token"))
+	viper.BindPFlag("nms-secret-token", aviaryCmd.PersistentFlags().Lookup("nms-secret-token"))
+
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// nmsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// aviaryCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
 }

@@ -61,12 +61,9 @@ func init() {
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.birdin.yaml)")
 	RootCmd.PersistentFlags().String("consumer-key", "", "Twitter API Consumer Key")
 	RootCmd.PersistentFlags().String("consumer-secret", "", "Twitter API Consumer Secret")
-	RootCmd.PersistentFlags().String("access-token", "", "Twitter API Access Token")
-	RootCmd.PersistentFlags().String("access-token-secret", "", "Twitter API Access Secret Token")
 	viper.BindPFlag("consumer-key", RootCmd.PersistentFlags().Lookup("consumer-key"))
 	viper.BindPFlag("consumer-secret", RootCmd.PersistentFlags().Lookup("consumer-secret"))
-	viper.BindPFlag("access-token", RootCmd.PersistentFlags().Lookup("access-token"))
-	viper.BindPFlag("access-token-secret", RootCmd.PersistentFlags().Lookup("access-token"))
+
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
