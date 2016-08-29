@@ -3,6 +3,8 @@ package nms
 import (
 	"fmt"
 	"math/rand"
+
+	"github.com/grepory/birdin/birds"
 )
 
 var (
@@ -87,7 +89,12 @@ func genAnimal() Animal {
 	}
 }
 
-// Get a random animal tweet.
-func Tweet() string {
-	return genAnimal().String()
+// Bird tweets a random No One's Sky animal description.
+type Bird struct {
+	Tweeter birds.Tweeter
+}
+
+// Tweet a random animal description.
+func (b *Bird) Tweet() (err error) {
+	return b.Tweeter.PostTweet(genAnimal().String())
 }

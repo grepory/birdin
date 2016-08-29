@@ -15,10 +15,8 @@
 package cmd
 
 import (
-	"fmt"
-	"net/url"
-
 	"github.com/ChimeraCoder/anaconda"
+	"github.com/grepory/birdin/birds"
 	"github.com/grepory/birdin/birds/nms"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -37,11 +35,10 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		anaconda.SetConsumerKey(viper.GetString("consumer-key"))
 		anaconda.SetConsumerSecret(viper.GetString("consumer-secret"))
-		api := anaconda.NewTwitterApi(viper.GetString("access-token"), viper.GetString("access-token-secret"))
-		status := nms.Tweet()
-		fmt.Println("Tweeting: ", status)
-		_, err := api.PostTweet(nms.Tweet(), url.Values{})
-		if err != nil {
+		bird := nms.Bird{
+			Tweeter: birds.NewAnaconda(viper.GetString("nms-access-token"), viper.GetString("nms-access-token-secret")),
+		}
+		if err := bird.Tweet(); err != nil {
 			panic(err)
 		}
 	},
