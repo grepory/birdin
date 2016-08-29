@@ -9,20 +9,39 @@ var (
 	ages = []string{
 		"perpetual",
 		"infant",
-		"larva",
+		"larval",
 		"adult",
 		"constant",
+		"undying",
+		"adolescent",
+		"eternal",
 	}
 
 	genders = []string{
 		"exotic",
 		"agender",
+		"gaseous",
+		"liquid",
+		"fluid",
+		"chromatic",
+		"indeterminate",
+		"vectored",
+		"radical",
+		"asymmetric",
+		"rational",
+		"symetric",
 	}
 
 	temperaments = []string{
 		"sophisticated",
 		"ambulatory",
 		"resigned",
+		"rambunxious",
+		"sleepy",
+		"flatulent",
+		"anxious",
+		"grumpy",
+		"locquacious",
 	}
 
 	tweetFmt = `Age: %s

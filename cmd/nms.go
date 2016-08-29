@@ -15,7 +15,6 @@
 package cmd
 
 import (
-	"fmt"
 	"net/url"
 
 	"github.com/ChimeraCoder/anaconda"
@@ -35,11 +34,6 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(viper.GetString("consumer-key"))
-		fmt.Println(viper.GetString("consumer-secret"))
-		fmt.Println(viper.GetString("access-token"))
-		fmt.Println(viper.GetString("access-token-secret"))
-
 		anaconda.SetConsumerKey(viper.GetString("consumer-key"))
 		anaconda.SetConsumerSecret(viper.GetString("consumer-secret"))
 		api := anaconda.NewTwitterApi(viper.GetString("access-token"), viper.GetString("access-token-secret"))
